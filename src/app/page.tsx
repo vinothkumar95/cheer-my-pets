@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
 import Lottie from "lottie-react";
-import dogHappy from "../animations/dog-happy.json";
-import dogSad from "../animations/dog-sad.json";
-import dogThinking from "../animations/dog-thinking.json";
+import dogHappy from "@/animations/dog-happy.json";
+import dogSad from "@/animations/dog-sad.json";
+import dogThinking from "@/animations/dog-thinking.json";
 
 export default function Home() {
   const [animationData, setAnimationData] = useState(dogThinking);
