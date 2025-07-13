@@ -338,8 +338,8 @@ export default function CheerMyPets() {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             "name": "Cheer My Pet",
-            "description": "Interactive pet emotion analysis and animation platform where users can choose pets and describe their day to see realistic emotional reactions.",
-            "url": "https://cheer-my-pet.vercel.app",
+            "description": "Interactive pet emotion analysis and animation platform where users can choose pets and talk to them and see realistic emotional reactions.",
+            "url": process.env.NEXT_PUBLIC_SITE_URL,
             "applicationCategory": "EntertainmentApplication",
             "operatingSystem": "Web Browser",
             "offers": {
@@ -349,7 +349,7 @@ export default function CheerMyPets() {
             },
             "author": {
               "@type": "Organization",
-              "name": "Cheer My Pet Team"
+              "name": "Vinoth kumar Chellapandi"
             },
             "featureList": [
               "Interactive pet selection",
@@ -359,13 +359,8 @@ export default function CheerMyPets() {
               "Keyboard navigation",
               "Mobile responsive"
             ],
-            "screenshot": "https://cheer-my-pet.vercel.app/og-image.png",
-            "softwareVersion": "1.0.0",
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "4.8",
-              "ratingCount": "150"
-            }
+            "screenshot": `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
+            "softwareVersion": "1.0.0"
           })
         }}
       />
