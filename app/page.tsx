@@ -12,6 +12,18 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import Lottie from "lottie-react";
+import waitingDog from "@/public/animations/dogs/waiting.json";
+import happyDog from "@/public/animations/dogs/happy.json";
+import sadDog from "@/public/animations/dogs/sad.json";
+import waitingcat from "@/public/animations/cats/waiting.json";
+import happycat from "@/public/animations/cats/happy.json";
+import sadcat from "@/public/animations/cats/sad.json";
+import happybird from "@/public/animations/birds/happy.json";
+import sadbird from "@/public/animations/birds/sad.json";
+import waitingbird from "@/public/animations/birds/waiting.json";
+
+
 
 interface Pet {
   id: string
@@ -22,6 +34,11 @@ interface Pet {
   neutralState: string
   happyState: string
   sadState: string
+  lottieAnimations: {
+    waiting: any
+    good: any
+    bad: any
+  }
 }
 
 const pets: Pet[] = [
@@ -34,6 +51,11 @@ const pets: Pet[] = [
     neutralState: "animate-dog-idle",
     happyState: "animate-dog-happy",
     sadState: "animate-dog-sad",
+    lottieAnimations: {
+      waiting: waitingDog,
+      good: happyDog,
+      bad: sadDog,
+    },
   },
   {
     id: "cat",
@@ -44,6 +66,11 @@ const pets: Pet[] = [
     neutralState: "animate-cat-idle",
     happyState: "animate-cat-happy",
     sadState: "animate-cat-sad",
+    lottieAnimations: {
+      waiting: waitingcat, // TODO: fill with cat waiting animation
+      good: happycat,   // TODO: fill with cat good animation
+      bad: sadcat,    // TODO: fill with cat bad animation
+    },
   },
   {
     id: "bird",
@@ -54,56 +81,11 @@ const pets: Pet[] = [
     neutralState: "animate-bird-idle",
     happyState: "animate-bird-happy",
     sadState: "animate-bird-sad",
-  },
-  {
-    id: "rabbit",
-    name: "Rabbit",
-    emoji: "🐰",
-    color: "from-green-400 to-emerald-500",
-    description: "Gentle and energetic hopper",
-    neutralState: "animate-rabbit-idle",
-    happyState: "animate-rabbit-happy",
-    sadState: "animate-rabbit-sad",
-  },
-  {
-    id: "hamster",
-    name: "Hamster",
-    emoji: "🐹",
-    color: "from-yellow-400 to-amber-500",
-    description: "Tiny and adorable explorer",
-    neutralState: "animate-hamster-idle",
-    happyState: "animate-hamster-happy",
-    sadState: "animate-hamster-sad",
-  },
-  {
-    id: "fish",
-    name: "Fish",
-    emoji: "🐠",
-    color: "from-teal-400 to-blue-500",
-    description: "Peaceful underwater friend",
-    neutralState: "animate-fish-idle",
-    happyState: "animate-fish-happy",
-    sadState: "animate-fish-sad",
-  },
-  {
-    id: "turtle",
-    name: "Turtle",
-    emoji: "🐢",
-    color: "from-emerald-400 to-green-500",
-    description: "Wise and patient companion",
-    neutralState: "animate-turtle-idle",
-    happyState: "animate-turtle-happy",
-    sadState: "animate-turtle-sad",
-  },
-  {
-    id: "panda",
-    name: "Panda",
-    emoji: "🐼",
-    color: "from-gray-400 to-slate-500",
-    description: "Cuddly bamboo lover",
-    neutralState: "animate-panda-idle",
-    happyState: "animate-panda-happy",
-    sadState: "animate-panda-sad",
+    lottieAnimations: {
+      waiting: waitingbird, // TODO: fill with bird waiting animation
+      good: happybird,   // TODO: fill with bird good animation
+      bad: sadbird,    // TODO: fill with bird bad animation
+    },
   },
 ]
 
@@ -121,56 +103,43 @@ const PetAvatar = ({ pet, isSelected }: { pet: Pet; isSelected: boolean }) => {
 }
 
 const AnimatedPet = ({ pet, sentiment, isAnalyzing }: { pet: Pet; sentiment: string; isAnalyzing: boolean }) => {
-  const getAnimationClass = () => {
-    if (isAnalyzing) return "animate-thinking"
-    if (sentiment === "happy") return pet.happyState
-    if (sentiment === "sad") return pet.sadState
-    return pet.neutralState
-  }
-
-  const getExpressionEmoji = () => {
-    if (isAnalyzing) return "🤔"
-    if (sentiment === "happy") return "😊"
-    if (sentiment === "sad") return "😢"
-    return pet.emoji
+  let lottieData = pet.lottieAnimations.waiting;
+  if (!isAnalyzing) {
+    if (sentiment === "happy") lottieData = pet.lottieAnimations.good;
+    else if (sentiment === "sad") lottieData = pet.lottieAnimations.bad;
+    else lottieData = pet.lottieAnimations.waiting;
   }
 
   return (
-    <div className={`relative ${getAnimationClass()}`}>
-      <div className="text-9xl transition-all duration-500 transform-gpu">{getExpressionEmoji()}</div>
-
-      {/* Animated eyes overlay for more realistic expressions */}
-      {/* <div className="absolute top-6 left-1/2 transform -translate-x-1/2 flex gap-4">
-        <div
-          className={`w-3 h-3 bg-black rounded-full transition-all duration-300 ${
-            sentiment === "happy" ? "animate-blink-happy" : sentiment === "sad" ? "animate-blink-sad" : "animate-blink"
-          }`}
-        ></div>
-        <div
-          className={`w-3 h-3 bg-black rounded-full transition-all duration-300 ${
-            sentiment === "happy" ? "animate-blink-happy" : sentiment === "sad" ? "animate-blink-sad" : "animate-blink"
-          }`}
-        ></div>
-      </div> */}
-
-      {/* Breathing effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-breathe rounded-full"></div>
-
-      {/* Happy particles */}
-      {sentiment === "happy" && (
-        <div className="absolute inset-0">
-          <div className="absolute -top-4 -left-4 text-2xl animate-float-up">✨</div>
-          <div className="absolute -top-6 right-2 text-xl animate-float-up-delayed">💖</div>
-          <div className="absolute -top-2 -right-6 text-lg animate-float-up-slow">🌟</div>
-        </div>
-      )}
-
-      {/* Sad effects */}
-      {sentiment === "sad" && (
-        <div className="absolute inset-0">
-          <div className="absolute top-8 left-4 text-2xl animate-tear-drop">💧</div>
-          <div className="absolute top-12 right-6 text-xl animate-tear-drop-delayed">💧</div>
-        </div>
+    <div className={`relative`}>
+      {lottieData && <Lottie animationData={lottieData} loop={true} />}
+      {/* Sad scenario effects */}
+      {sentiment === "sad" && !isAnalyzing && (
+        <>
+          {/* Blue overlay */}
+          <div className="absolute inset-0 bg-blue-200/40 rounded-full pointer-events-none animate-fade-in"></div>
+          {/* Animated tears */}
+          <div className="absolute left-1/2 top-2/3 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none">
+            <span className="text-3xl animate-tear-drop">💧</span>
+            <span className="text-2xl animate-tear-drop-delayed">💧</span>
+          </div>
+          {/* Optional: Rain effect */}
+          <div className="absolute inset-0 pointer-events-none">
+            {[...Array(6)].map((_, i) => (
+              <span
+                key={i}
+                className="absolute text-xl text-blue-400 opacity-60 animate-rain"
+                style={{
+                  left: `${10 + i * 12}%`,
+                  top: `${Math.random() * 20}%`,
+                  animationDelay: `${i * 0.3}s`,
+                }}
+              >
+                💧
+              </span>
+            ))}
+          </div>
+        </>
       )}
     </div>
   )
@@ -226,6 +195,7 @@ export default function CheerMyPets() {
       }
 
       setSentiment(result.sentiment)
+      setInputText("") // Reset input field after response
       
       if (result.sentiment === "happy") {
         setShowParticles(true)
@@ -249,16 +219,10 @@ export default function CheerMyPets() {
   // Handle carousel selection change
   const handleCarouselSelect = (index: number) => {
     setSelectedPet(pets[index])
-    // Scroll to input field after selection
-    // setTimeout(() => {
-    //   const inputSection = document.getElementById('input-section')
-    //   if (inputSection) {
-    //     inputSection.scrollIntoView({ 
-    //       behavior: 'smooth', 
-    //       block: 'center' 
-    //     })
-    //   }
-    // }, 300)
+    setSentiment("neutral")
+    setIsAnalyzing(false)
+    setShowParticles(false)
+    setInputText("") // Optionally clear input when switching pets
   }
 
   // Keyboard navigation handler
@@ -462,7 +426,12 @@ export default function CheerMyPets() {
             <div className={`transition-all duration-700 ${getPetContainerClass()}`}>
               <div className="w-80 h-80 mx-auto mb-6 relative flex items-center justify-center">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-full"></div>
-                <AnimatedPet pet={selectedPet} sentiment={sentiment} isAnalyzing={isAnalyzing} />
+                <AnimatedPet 
+                  key={selectedPet.id + sentiment + isAnalyzing} 
+                  pet={selectedPet} 
+                  sentiment={sentiment} 
+                  isAnalyzing={isAnalyzing} 
+                />
               </div>
             </div>
 
