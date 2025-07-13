@@ -1,0 +1,792 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Enhanced carousel styling */
+  .carousel-card {
+    transition: all 0.3s ease;
+    transform-origin: center;
+    position: relative;
+    z-index: 1;
+    touch-action: manipulation;
+  }
+  
+  .carousel-card:hover {
+    transform: translateY(-1px) scale(1.03);
+    z-index: 10;
+  }
+  
+  .carousel-card:focus {
+    outline: 2px solid #8b5cf6;
+    outline-offset: 2px;
+  }
+  
+  /* Mobile touch improvements */
+  @media (max-width: 768px) {
+    .carousel-card {
+      touch-action: pan-x;
+    }
+    
+    .carousel-card:hover {
+      transform: none;
+    }
+  }
+  
+  /* Custom scale for selected cards */
+  .scale-70 {
+    transform: scale(0.7);
+  }
+  
+  .scale-80 {
+    transform: scale(0.8);
+  }
+  
+  .scale-101 {
+    transform: scale(1.01);
+  }
+  
+  .scale-102 {
+    transform: scale(1.02);
+  }
+}
+
+/* Basic floating animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(-1deg);
+  }
+}
+
+/* Gentle bounce for pet avatars */
+@keyframes bounce-gentle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Pet-specific animations */
+
+/* Dog animations */
+@keyframes dog-idle {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-2deg) scale(1.02);
+  }
+  75% {
+    transform: rotate(2deg) scale(0.98);
+  }
+}
+
+@keyframes dog-happy {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1) translateY(0);
+  }
+  25% {
+    transform: rotate(-5deg) scale(1.1) translateY(-10px);
+  }
+  50% {
+    transform: rotate(0deg) scale(1.15) translateY(-15px);
+  }
+  75% {
+    transform: rotate(5deg) scale(1.1) translateY(-10px);
+  }
+}
+
+@keyframes dog-sad {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(0.9) translateY(5px);
+  }
+  50% {
+    transform: rotate(-1deg) scale(0.85) translateY(8px);
+  }
+}
+
+/* Cat animations */
+@keyframes cat-idle {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  33% {
+    transform: rotate(1deg) scale(1.01);
+  }
+  66% {
+    transform: rotate(-1deg) scale(0.99);
+  }
+}
+
+@keyframes cat-happy {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1) translateX(0);
+  }
+  25% {
+    transform: rotate(-3deg) scale(1.05) translateX(-5px);
+  }
+  75% {
+    transform: rotate(3deg) scale(1.05) translateX(5px);
+  }
+}
+
+@keyframes cat-sad {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(0.95) translateY(3px);
+  }
+  50% {
+    transform: rotate(0deg) scale(0.9) translateY(6px);
+  }
+}
+
+/* Bird animations */
+@keyframes bird-idle {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+@keyframes bird-happy {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-15px) rotate(-10deg) scale(1.1);
+  }
+  50% {
+    transform: translateY(-20px) rotate(0deg) scale(1.15);
+  }
+  75% {
+    transform: translateY(-15px) rotate(10deg) scale(1.1);
+  }
+}
+
+@keyframes bird-sad {
+  0%,
+  100% {
+    transform: translateY(10px) rotate(0deg) scale(0.9);
+  }
+  50% {
+    transform: translateY(15px) rotate(-2deg) scale(0.85);
+  }
+}
+
+/* Rabbit animations */
+@keyframes rabbit-idle {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.02);
+  }
+}
+
+@keyframes rabbit-happy {
+  0%,
+  20%,
+  40%,
+  60%,
+  80%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateY(-20px) scale(1.1);
+  }
+}
+
+@keyframes rabbit-sad {
+  0%,
+  100% {
+    transform: translateY(8px) scale(0.9);
+  }
+  50% {
+    transform: translateY(12px) scale(0.85);
+  }
+}
+
+/* Hamster animations */
+@keyframes hamster-idle {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-3deg) scale(1.03);
+  }
+  75% {
+    transform: rotate(3deg) scale(0.97);
+  }
+}
+
+@keyframes hamster-happy {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1) translateX(0);
+  }
+  12.5% {
+    transform: rotate(-8deg) scale(1.1) translateX(-8px);
+  }
+  25% {
+    transform: rotate(8deg) scale(1.1) translateX(8px);
+  }
+  37.5% {
+    transform: rotate(-8deg) scale(1.1) translateX(-8px);
+  }
+  50% {
+    transform: rotate(8deg) scale(1.1) translateX(8px);
+  }
+  62.5% {
+    transform: rotate(-8deg) scale(1.1) translateX(-8px);
+  }
+  75% {
+    transform: rotate(8deg) scale(1.1) translateX(8px);
+  }
+  87.5% {
+    transform: rotate(-8deg) scale(1.1) translateX(-8px);
+  }
+}
+
+@keyframes hamster-sad {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(0.85) translateY(10px);
+  }
+  50% {
+    transform: rotate(-1deg) scale(0.8) translateY(15px);
+  }
+}
+
+/* Fish animations */
+@keyframes fish-idle {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-3px) rotate(-2deg);
+  }
+  75% {
+    transform: translateX(3px) rotate(2deg);
+  }
+}
+
+@keyframes fish-happy {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateX(-15px) rotate(-15deg) scale(1.1);
+  }
+  50% {
+    transform: translateX(0) rotate(0deg) scale(1.15);
+  }
+  75% {
+    transform: translateX(15px) rotate(15deg) scale(1.1);
+  }
+}
+
+@keyframes fish-sad {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg) scale(0.9) translateY(5px);
+  }
+  50% {
+    transform: translateX(-2px) rotate(-1deg) scale(0.85) translateY(8px);
+  }
+}
+
+/* Turtle animations */
+@keyframes turtle-idle {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.01) rotate(0.5deg);
+  }
+}
+
+@keyframes turtle-happy {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg) translateY(0);
+  }
+  25% {
+    transform: scale(1.05) rotate(-2deg) translateY(-3px);
+  }
+  75% {
+    transform: scale(1.05) rotate(2deg) translateY(-3px);
+  }
+}
+
+@keyframes turtle-sad {
+  0%,
+  100% {
+    transform: scale(0.95) rotate(0deg) translateY(5px);
+  }
+  50% {
+    transform: scale(0.9) rotate(0deg) translateY(8px);
+  }
+}
+
+/* Panda animations */
+@keyframes panda-idle {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  33% {
+    transform: rotate(-1deg) scale(1.01);
+  }
+  66% {
+    transform: rotate(1deg) scale(0.99);
+  }
+}
+
+@keyframes panda-happy {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1) translateY(0);
+  }
+  25% {
+    transform: rotate(-4deg) scale(1.08) translateY(-8px);
+  }
+  75% {
+    transform: rotate(4deg) scale(1.08) translateY(-8px);
+  }
+}
+
+@keyframes panda-sad {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(0.92) translateY(6px);
+  }
+  50% {
+    transform: rotate(-1deg) scale(0.88) translateY(10px);
+  }
+}
+
+/* Thinking animation */
+@keyframes thinking {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-2deg) scale(1.02);
+  }
+  75% {
+    transform: rotate(2deg) scale(0.98);
+  }
+}
+
+/* Eye blinking animations */
+@keyframes blink {
+  0%,
+  90%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes blink-happy {
+  0%,
+  85%,
+  100% {
+    transform: scaleY(1) scaleX(1.2);
+  }
+  90% {
+    transform: scaleY(0.1) scaleX(1.2);
+  }
+}
+
+@keyframes blink-sad {
+  0%,
+  95%,
+  100% {
+    transform: scaleY(0.7) scaleX(0.8);
+  }
+  97% {
+    transform: scaleY(0.1) scaleX(0.8);
+  }
+}
+
+/* Breathing effect */
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+/* Particle animations */
+@keyframes float-up {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes float-up-delayed {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-60px) rotate(-360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes float-up-slow {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-40px) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tear-drop {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+}
+
+@keyframes tear-drop-delayed {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(35px);
+    opacity: 0;
+  }
+}
+
+/* Bounce variations */
+@keyframes bounce-happy {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  40% {
+    transform: translateY(-20px) scale(1.1);
+  }
+  60% {
+    transform: translateY(-10px) scale(1.05);
+  }
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-1deg);
+  }
+  75% {
+    transform: rotate(1deg);
+  }
+}
+
+/* Apply animations */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-thinking {
+  animation: thinking 2s ease-in-out infinite;
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.animate-float-up {
+  animation: float-up 2s ease-out infinite;
+}
+
+.animate-float-up-delayed {
+  animation: float-up-delayed 2.5s ease-out infinite;
+  animation-delay: 0.5s;
+}
+
+.animate-float-up-slow {
+  animation: float-up-slow 3s ease-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-tear-drop {
+  animation: tear-drop 2s ease-in infinite;
+}
+
+.animate-tear-drop-delayed {
+  animation: tear-drop-delayed 2.5s ease-in infinite;
+  animation-delay: 0.8s;
+}
+
+.animate-bounce-happy {
+  animation: bounce-happy 1s ease-in-out infinite;
+}
+
+.animate-sway {
+  animation: sway 3s ease-in-out infinite;
+}
+
+.animate-blink {
+  animation: blink 3s ease-in-out infinite;
+}
+
+.animate-blink-happy {
+  animation: blink-happy 2s ease-in-out infinite;
+}
+
+.animate-blink-sad {
+  animation: blink-sad 4s ease-in-out infinite;
+}
+
+/* Pet-specific animation classes */
+.animate-dog-idle {
+  animation: dog-idle 3s ease-in-out infinite;
+}
+
+.animate-dog-happy {
+  animation: dog-happy 1s ease-in-out infinite;
+}
+
+.animate-dog-sad {
+  animation: dog-sad 2s ease-in-out infinite;
+}
+
+.animate-cat-idle {
+  animation: cat-idle 4s ease-in-out infinite;
+}
+
+.animate-cat-happy {
+  animation: cat-happy 1.5s ease-in-out infinite;
+}
+
+.animate-cat-sad {
+  animation: cat-sad 3s ease-in-out infinite;
+}
+
+.animate-bird-idle {
+  animation: bird-idle 2s ease-in-out infinite;
+}
+
+.animate-bird-happy {
+  animation: bird-happy 1s ease-in-out infinite;
+}
+
+.animate-bird-sad {
+  animation: bird-sad 2.5s ease-in-out infinite;
+}
+
+.animate-rabbit-idle {
+  animation: rabbit-idle 2.5s ease-in-out infinite;
+}
+
+.animate-rabbit-happy {
+  animation: rabbit-happy 1.2s ease-in-out infinite;
+}
+
+.animate-rabbit-sad {
+  animation: rabbit-sad 3s ease-in-out infinite;
+}
+
+.animate-hamster-idle {
+  animation: hamster-idle 2s ease-in-out infinite;
+}
+
+.animate-hamster-happy {
+  animation: hamster-happy 0.8s ease-in-out infinite;
+}
+
+.animate-hamster-sad {
+  animation: hamster-sad 2.5s ease-in-out infinite;
+}
+
+.animate-fish-idle {
+  animation: fish-idle 3s ease-in-out infinite;
+}
+
+.animate-fish-happy {
+  animation: fish-happy 1.5s ease-in-out infinite;
+}
+
+.animate-fish-sad {
+  animation: fish-sad 3.5s ease-in-out infinite;
+}
+
+.animate-turtle-idle {
+  animation: turtle-idle 5s ease-in-out infinite;
+}
+
+.animate-turtle-happy {
+  animation: turtle-happy 2s ease-in-out infinite;
+}
+
+.animate-turtle-sad {
+  animation: turtle-sad 4s ease-in-out infinite;
+}
+
+.animate-panda-idle {
+  animation: panda-idle 3.5s ease-in-out infinite;
+}
+
+.animate-panda-happy {
+  animation: panda-happy 1.3s ease-in-out infinite;
+}
+
+.animate-panda-sad {
+  animation: panda-sad 3s ease-in-out infinite;
+}
