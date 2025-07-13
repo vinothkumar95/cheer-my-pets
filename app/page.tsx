@@ -414,7 +414,7 @@ export default function CheerMyPets() {
             Cheer My Pet
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Choose your pet and tell us about their day. Watch them come alive with realistic animations and emotions!
+            Choose your pet and tell us how to talk to yours. Watch them how it feels!
             🐾✨
           </p>
         </div>
@@ -430,14 +430,14 @@ export default function CheerMyPets() {
               Navigate to center and select your pet
               <ChevronRight className="w-4 h-4" />
             </p>
-            <div className="mt-2 flex items-center justify-center gap-4 text-xs text-gray-400">
+            {/* <div className="mt-2 flex items-center justify-center gap-4 text-xs text-gray-400">
               <span className="bg-gray-200 px-2 py-1 rounded">← →</span>
               <span>Navigate pets</span>
               <span className="bg-gray-200 px-2 py-1 rounded">Enter</span>
               <span>Select centered pet</span>
               <span className="bg-gray-200 px-2 py-1 rounded">Click</span>
               <span>Select any pet</span>
-            </div>
+            </div> */}
           </div>
 
           <div className="relative max-w-6xl mx-auto focus-within:rounded-lg">

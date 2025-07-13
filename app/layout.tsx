@@ -1,9 +1,9 @@
-import type { Metadata } from 'next'
+import type { Metadata,Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Cheer My Pet - Interactive Pet Emotion Analysis & Animation',
-  description: 'Choose your pet and describe their day to see them come alive with realistic animations! Watch your pets react with emotions based on your descriptions.',
+  title: 'Cheer My Pet - Know your pets emotions',
+  description: 'Choose one of your pet and converse with them to see them come alive with realistic emotions! Watch your pets react with emotions based on your words.',
   keywords: [
     'pet emotions',
     'pet animation',
@@ -26,22 +26,23 @@ export const metadata: Metadata = {
     'pet day description',
     'pet emotion analysis'
   ],
-  authors: [{ name: 'Cheer My Pet Team' }],
-  creator: 'Cheer My Pet',
-  publisher: 'Cheer My Pet',
+  authors: [{ name: 'Vinoth kumar Chellapandi' }],
+  creator: 'Vinoth kumar Chellapandi',
+  publisher: 'Vinoth kumar Chellapandi',
+  applicationName: 'Cheer My Pet',
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://cheer-my-pet.vercel.app'),
+  metadataBase: new URL('https://cheer-my-pet.netlify.app/'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: 'Cheer My Pet - Interactive Pet Emotion Analysis',
-    description: 'Choose your pet and describe their day to see them come alive with realistic animations! Watch your pets react with emotions based on your descriptions.',
-    url: 'https://cheer-my-pet.vercel.app',
+    description: 'Choose one of your pet and converse with them to see them come alive with realistic emotions! Watch your pets react with emotions based on your words.',
+    url: 'https://cheer-my-pet.netlify.app/',
     siteName: 'Cheer My Pet',
     images: [
       {
@@ -57,10 +58,10 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Cheer My Pet - Interactive Pet Emotion Analysis',
-    description: 'Choose your pet and describe their day to see them come alive with realistic animations!',
+    description: 'Choose your pet and interact with it to see its emotion with realistic animation!',
     images: ['/og-image.png'],
-    creator: '@cheermypet',
-    site: '@cheermypet',
+    creator: '@cvinoth95',
+    site: '@cvinoth95',
   },
   robots: {
     index: true,
@@ -74,13 +75,18 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
-    yahoo: 'your-yahoo-verification-code',
+    google: 'HXFvmLoUXKNvJ7aS57HIYfIVFN6QKhxcrXbPy3p9z3A',
+    yandex: 'e00a95014bddfc6f',
+    yahoo: '75F12A477996BF87809F7D1162F9034E',
   },
   category: 'entertainment',
-  classification: 'interactive pet simulation',
+  classification: 'interactive sentiment analysis',
 }
+
+export const viewport : Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 
 export default function RootLayout({
   children,
