@@ -140,7 +140,7 @@ const AnimatedPet = ({ pet, sentiment, isAnalyzing }: { pet: Pet; sentiment: str
       <div className="text-9xl transition-all duration-500 transform-gpu">{getExpressionEmoji()}</div>
 
       {/* Animated eyes overlay for more realistic expressions */}
-      <div className="absolute top-6 left-1/2 transform -translate-x-1/2 flex gap-4">
+      {/* <div className="absolute top-6 left-1/2 transform -translate-x-1/2 flex gap-4">
         <div
           className={`w-3 h-3 bg-black rounded-full transition-all duration-300 ${
             sentiment === "happy" ? "animate-blink-happy" : sentiment === "sad" ? "animate-blink-sad" : "animate-blink"
@@ -151,7 +151,7 @@ const AnimatedPet = ({ pet, sentiment, isAnalyzing }: { pet: Pet; sentiment: str
             sentiment === "happy" ? "animate-blink-happy" : sentiment === "sad" ? "animate-blink-sad" : "animate-blink"
           }`}
         ></div>
-      </div>
+      </div> */}
 
       {/* Breathing effect */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-breathe rounded-full"></div>
@@ -250,15 +250,15 @@ export default function CheerMyPets() {
   const handleCarouselSelect = (index: number) => {
     setSelectedPet(pets[index])
     // Scroll to input field after selection
-    setTimeout(() => {
-      const inputSection = document.getElementById('input-section')
-      if (inputSection) {
-        inputSection.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'center' 
-        })
-      }
-    }, 300)
+    // setTimeout(() => {
+    //   const inputSection = document.getElementById('input-section')
+    //   if (inputSection) {
+    //     inputSection.scrollIntoView({ 
+    //       behavior: 'smooth', 
+    //       block: 'center' 
+    //     })
+    //   }
+    // }, 300)
   }
 
   // Keyboard navigation handler
@@ -394,7 +394,7 @@ export default function CheerMyPets() {
               opts={{
                 align: "center",
                 loop: true,
-                dragFree: false,
+                dragFree: true,
                 containScroll: false,
                 skipSnaps: false,
               }}
@@ -480,9 +480,9 @@ export default function CheerMyPets() {
                 </div>
               )}
               {sentiment === "neutral" && !isAnalyzing && (
-                <div className="flex items-center gap-2 bg-gradient-to-r from-gray-100 to-slate-100 text-gray-600 px-6 py-2 rounded-full text-lg font-medium shadow-lg min-w-[240px] justify-center">
+                <div className="flex items-center gap-2 bg-gradient-to-r from-gray-100 to-slate-100 text-gray-600 px-6 py-2 rounded-full text-lg font-medium shadow-lg min-w-[250px] justify-center">
                   <Star className="w-5 h-5" />
-                  Ready to Listen
+                  I'am Ready to Listen
                 </div>
               )}
               {isAnalyzing && (
@@ -535,7 +535,7 @@ export default function CheerMyPets() {
                 ) : (
                   <div className="flex items-center gap-3">
                     <Heart className="w-6 h-6" />
-                    Bring My Pet to Life!
+                    Know how your pet feels ? click here
                   </div>
                 )}
               </Button>
