@@ -107,71 +107,6 @@ const pets: Pet[] = [
   },
 ]
 
-const analyzeSentiment = (text: string): "happy" | "sad" | "neutral" => {
-  const happyWords = [
-    "happy",
-    "joy",
-    "excited",
-    "love",
-    "great",
-    "amazing",
-    "wonderful",
-    "fantastic",
-    "good",
-    "fun",
-    "play",
-    "treat",
-    "walk",
-    "sunny",
-    "beautiful",
-    "awesome",
-    "perfect",
-    "smile",
-    "laugh",
-    "cheerful",
-    "energetic",
-    "playful",
-    "bouncy",
-    "running",
-    "jumping",
-  ]
-  const sadWords = [
-    "sad",
-    "tired",
-    "sick",
-    "hurt",
-    "pain",
-    "lonely",
-    "scared",
-    "worried",
-    "bad",
-    "terrible",
-    "awful",
-    "upset",
-    "cry",
-    "miss",
-    "lost",
-    "hungry",
-    "cold",
-    "angry",
-    "frustrated",
-    "bored",
-    "sleepy",
-    "quiet",
-    "hiding",
-    "slow",
-    "weak",
-  ]
-
-  const lowerText = text.toLowerCase()
-  const happyCount = happyWords.filter((word) => lowerText.includes(word)).length
-  const sadCount = sadWords.filter((word) => lowerText.includes(word)).length
-
-  if (happyCount > sadCount) return "happy"
-  if (sadCount > happyCount) return "sad"
-  return "neutral"
-}
-
 const PetAvatar = ({ pet, isSelected }: { pet: Pet; isSelected: boolean }) => {
   return (
     <div
@@ -267,16 +202,40 @@ export default function CheerMyPets() {
 
     setIsAnalyzing(true)
 
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      const response = await fetch("/api/sentiment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: inputText }),
+      })
 
-    const result = analyzeSentiment(inputText)
-    setSentiment(result)
-    setIsAnalyzing(false)
 
-    if (result === "happy") {
-      setShowParticles(true)
-      setTimeout(() => setShowParticles(false), 3000)
+      if (!response.ok) {
+        throw new Error('Failed to analyze sentiment')
+      }
+
+      const result = await response.json()
+
+      console.log(result)
+
+      
+      if (result.error) {
+        throw new Error(result.error)
+      }
+
+      setSentiment(result.sentiment)
+      
+      if (result.sentiment === "happy") {
+        setShowParticles(true)
+        setTimeout(() => setShowParticles(false), 3000)
+      }
+    } catch (error) {
+      console.error("Error analyzing sentiment:", error)
+      setSentiment("neutral")
+    } finally {
+      setIsAnalyzing(false)
     }
   }
 
@@ -342,11 +301,6 @@ export default function CheerMyPets() {
             "url": process.env.NEXT_PUBLIC_SITE_URL,
             "applicationCategory": "EntertainmentApplication",
             "operatingSystem": "Web Browser",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            },
             "author": {
               "@type": "Organization",
               "name": "Vinoth kumar Chellapandi"
@@ -406,17 +360,17 @@ export default function CheerMyPets() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent mb-4 animate-pulse">
-            Cheer My Pet
+          Choose Your Virtual Pet Companion
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Choose your pet and tell us how to talk to yours. Watch them how it feels!
+          <h2 className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Make Your Pets Smile with Cheer My Pet
             🐾✨
-          </p>
+          </h2>
         </div>
 
         {/* Enhanced Pet Selector with Carousel */}
         <div className="mb-12">
-          <h2 className="text-3xl font-semibold text-center mb-8 text-gray-700">Choose Your Pet</h2>
+          <h2 className="text-3xl font-semibold text-center mb-8 text-gray-700">Slide Through pets: Track Pets Emotions Instantly</h2>
           
           {/* Scroll indicator */}
           <div className="text-center mb-6">
@@ -551,7 +505,7 @@ export default function CheerMyPets() {
                   ? "Your pet is absolutely thrilled! Look at those happy movements! Keep spreading the joy! 🌟"
                   : sentiment === "sad"
                     ? "Your pet seems to need some extra love and attention today. Give them some comfort! 💕"
-                    : "Tell us about your pet's day and watch them react with lifelike animations!"}
+                    : "Tell Your Pet a Story & Watch It React"}
             </p>
           </div>
         </div>
